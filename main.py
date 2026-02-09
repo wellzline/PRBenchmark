@@ -12,7 +12,7 @@ from tqdm import tqdm
 import logging
 from cifar_model import *
 from utils import data_prepare
-from attack_algorithms import (corruption_laplace, corruption_gaussian, ERM_DataAug, CLP, ALP, KL_AE, pgd_loss, fgsm_loss, trades_loss, mart_loss, corruption_uniform, CVaR_loss, PR)
+from attack_algorithms import (corruption_laplace, corruption_gaussian, ERM_DataAug, CLP, ALP, pgd_loss, fgsm_loss, trades_loss, mart_loss, corruption_uniform, CVaR_loss, PR)
 from evaluate import  evaluate_aa, evaluate_PGD, evaluate_PR, evaluate_cw
 seed = 0
 random.seed(seed)

@@ -1,25 +1,3 @@
-""" ConViT Model
-
-@article{d2021convit,
-  title={ConViT: Improving Vision Transformers with Soft Convolutional Inductive Biases},
-  author={d'Ascoli, St{\'e}phane and Touvron, Hugo and Leavitt, Matthew and Morcos, Ari and Biroli, Giulio and Sagun, Levent},
-  journal={arXiv preprint arXiv:2103.10697},
-  year={2021}
-}
-
-Paper link: https://arxiv.org/abs/2103.10697
-Original code: https://github.com/facebookresearch/convit, original copyright below
-"""
-# Copyright (c) 2015-present, Facebook, Inc.
-# All rights reserved.
-#
-# This source code is licensed under the CC-by-NC license found in the
-# LICENSE file in the root directory of this source tree.
-#
-'''These modules are adapted from those of timm, see
-https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/vision_transformer.py
-'''
-
 import torch
 import torch.nn as nn
 from functools import partial
@@ -46,7 +24,6 @@ def _cfg(url='', **kwargs):
 
 
 default_cfgs = {
-    # ConViT
     'convit_tiny': _cfg(
         url="https://dl.fbaipublicfiles.com/convit/convit_tiny.pth"),
     'convit_small': _cfg(
@@ -75,7 +52,7 @@ class GPSA(nn.Module):
         self.pos_proj = nn.Linear(3, num_heads)
         self.proj_drop = nn.Dropout(proj_drop)
         self.gating_param = nn.Parameter(torch.ones(self.num_heads))
-        self.rel_indices: torch.Tensor = torch.zeros(1, 1, 1, 3)  # silly torchscript hack, won't work with None
+        self.rel_indices: torch.Tensor = torch.zeros(1, 1, 1, 3)  
 
     def forward(self, x):
         B, N, C = x.shape
@@ -108,7 +85,7 @@ class GPSA(nn.Module):
         return attn
 
     def get_attention_map(self, x, return_map=False):
-        attn_map = self.get_attention(x).mean(0)  # average over batch
+        attn_map = self.get_attention(x).mean(0) 
         distances = self.rel_indices.squeeze()[:, :, -1] ** .5
         dist = torch.einsum('nm,hnm->h', (distances, attn_map)) / distances.size(0)
         if return_map:
@@ -118,7 +95,7 @@ class GPSA(nn.Module):
 
     def local_init(self):
         self.v.weight.data.copy_(torch.eye(self.dim))
-        locality_distance = 1  # max(1,1/locality_strength**.5)
+        locality_distance = 1 
 
         kernel_size = int(self.num_heads ** .5)
         center = (kernel_size - 1) / 2 if kernel_size % 2 == 0 else kernel_size // 2
@@ -218,8 +195,6 @@ class Block(nn.Module):
 
 
 class ConViT(nn.Module):
-    """ Vision Transformer with support for patch or hybrid CNN input stage
-    """
 
     def __init__(self, img_size=224, patch_size=16, in_chans=3, num_classes=1000, embed_dim=768, depth=12,
                  num_heads=12, mlp_ratio=4., qkv_bias=False, drop_rate=0., attn_drop_rate=0.,
@@ -229,7 +204,7 @@ class ConViT(nn.Module):
         embed_dim *= num_heads
         self.num_classes = num_classes
         self.local_up_to_layer = local_up_to_layer
-        self.num_features = self.embed_dim = embed_dim  # num_features for consistency with other models
+        self.num_features = self.embed_dim = embed_dim 
         self.locality_strength = locality_strength
         self.use_pos_embed = use_pos_embed
 
@@ -249,7 +224,7 @@ class ConViT(nn.Module):
             self.pos_embed = nn.Parameter(torch.zeros(1, num_patches, embed_dim))
             trunc_normal_(self.pos_embed, std=.02)
 
-        dpr = [x.item() for x in torch.linspace(0, drop_path_rate, depth)]  # stochastic depth decay rule
+        dpr = [x.item() for x in torch.linspace(0, drop_path_rate, depth)] 
         self.blocks = nn.ModuleList([
             Block(
                 dim=embed_dim, num_heads=num_heads, mlp_ratio=mlp_ratio, qkv_bias=qkv_bias,
@@ -264,7 +239,7 @@ class ConViT(nn.Module):
             for i in range(depth)])
         self.norm = norm_layer(embed_dim)
 
-        # Classifier head
+
         self.feature_info = [dict(num_chs=embed_dim, reduction=0, module='head')]
         self.head = nn.Linear(embed_dim, num_classes) if num_classes > 0 else nn.Identity()
 
@@ -326,10 +301,8 @@ def resize_pos_embed(posemb, posemb_new):
     return posemb_grid
 
 def checkpoint_filter_fn(state_dict, model, args):
-    """ convert patch embedding weight from manual patchify + linear proj to conv"""
     out_dict = {}
     if 'model' in state_dict:
-        # For deit models
         state_dict = state_dict['model']
     for k, v in state_dict.items():
         if k == 'pos_embed' and v.shape != model.pos_embed.shape:

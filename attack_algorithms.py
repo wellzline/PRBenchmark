@@ -4,7 +4,6 @@ import torch.nn.functional as F
 from torch.autograd import Variable
 import random
 import numpy as np
-import torchattacks
 import torch.distributions as dist
 
 seed = 0
@@ -111,24 +110,6 @@ def pgd_loss(model, x, y, optimizer, step_size=2/255, epsilon=8/255, attack_step
         return loss, logits
 
 
-    
-
-
-def KL_AE(model, x, step_size, epsilon, attack_steps):
-    criterion_kl = nn.KLDivLoss(reduction='batchmean')
-    model.eval()
-    x_adv = x.detach() + 0.001 * torch.randn(x.shape).cuda().detach()
-    for _ in range(attack_steps):
-        x_adv.requires_grad_()
-        with torch.enable_grad():
-            loss_kl = criterion_kl(F.log_softmax(model(x_adv), dim=1),
-                                    F.softmax(model(x), dim=1))
-        grad = torch.autograd.grad(loss_kl, [x_adv])[0]
-        x_adv = x_adv.detach() + step_size * torch.sign(grad.detach())
-        x_adv = torch.min(torch.max(x_adv, x - epsilon), x + epsilon)
-        x_adv = torch.clamp(x_adv, min=0, max=1).detach()
-    
-    return x_adv
 
 
 

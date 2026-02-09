@@ -36,55 +36,55 @@ def get_dataloader(args):
         ])
     if args.dataset == "CIFAR10":
         test_loader = torch.utils.data.DataLoader(
-            torchvision.datasets.CIFAR10("../benchmark_dell/dataset/cifar_10", train=False, download=True, transform=transform_test),
+            torchvision.datasets.CIFAR10("./dataset/cifar_10", train=False, download=True, transform=transform_test),
             batch_size=1000, shuffle=False, num_workers=8)
 
         train_loader = torch.utils.data.DataLoader(
-            torchvision.datasets.CIFAR10("../benchmark_dell/dataset/cifar_10", train=True, download=True, transform=transform_test),
+            torchvision.datasets.CIFAR10("./dataset/cifar_10", train=True, download=True, transform=transform_test),
             batch_size=1000, shuffle=False, num_workers=8)
     
     elif args.dataset == "CIFAR100":
         test_loader = torch.utils.data.DataLoader(
-            torchvision.datasets.CIFAR100("../benchmark_dell/dataset/cifar_100", train=False, download=True, transform=transform_test),
+            torchvision.datasets.CIFAR100("./dataset/cifar_100", train=False, download=True, transform=transform_test),
             batch_size=1000, shuffle=False, num_workers=8)
 
         train_loader = torch.utils.data.DataLoader(
-            torchvision.datasets.CIFAR100("../benchmark_dell/dataset/cifar_100", train=True, download=True, transform=transform_test),
+            torchvision.datasets.CIFAR100("./dataset/cifar_100", train=True, download=True, transform=transform_test),
             batch_size=1000, shuffle=False, num_workers=8)
         
     elif args.dataset == "CINIC10":
         train_loader = torch.utils.data.DataLoader(
-            ImageFolder(root=os.path.join("../benchmark_dell/dataset/cinic-10", 'train'), transform=transform_test),
+            ImageFolder(root=os.path.join("./dataset/cinic-10", 'train'), transform=transform_test),
             batch_size=1000, shuffle=False, num_workers=8)
 
         test_loader = torch.utils.data.DataLoader(
-            ImageFolder(root=os.path.join("../benchmark_dell/dataset/cinic-10", 'test'), transform=transform_test),
+            ImageFolder(root=os.path.join("./dataset/cinic-10", 'test'), transform=transform_test),
             batch_size=1000, shuffle=False, num_workers=8)
 
     elif args.dataset == "svhn":
         train_loader = torch.utils.data.DataLoader(
-            torchvision.datasets.SVHN(root="../benchmark_dell/dataset/svhn", split='train', download=True, transform=transform_test),
+            torchvision.datasets.SVHN(root="./dataset/svhn", split='train', download=True, transform=transform_test),
             batch_size=1000, shuffle=False, num_workers=8)
 
         test_loader = torch.utils.data.DataLoader(
-            torchvision.datasets.SVHN(root="../benchmark_dell/dataset/svhn", split='test', download=True, transform=transform_test),
+            torchvision.datasets.SVHN(root="./dataset/svhn", split='test', download=True, transform=transform_test),
             batch_size=1000, shuffle=False, num_workers=8)
     
     elif args.dataset == "TinyImageNet":
         train_loader = torch.utils.data.DataLoader(
-            TinyImageNet("../benchmark_dell/dataset/tiny-imagenet", split='train',  transform=transform_test, download=True),
+            TinyImageNet("./dataset/tiny-imagenet", split='train',  transform=transform_test, download=True),
             batch_size=1000, shuffle=False, num_workers=8)
 
         test_loader = torch.utils.data.DataLoader(
-            TinyImageNet("../benchmark_dell/dataset/tiny-imagenet", split='val',  transform=transform_test, download=True),
+            TinyImageNet("./dataset/tiny-imagenet", split='val',  transform=transform_test, download=True),
             batch_size=1000, shuffle=False, num_workers=8)
     
     elif args.dataset == "MNIST":
         train_loader = torch.utils.data.DataLoader(
-            torchvision.datasets.MNIST(root="../benchmark_dell/dataset/MNIST", train=True, download=True, transform=transform_test),
+            torchvision.datasets.MNIST(root="./dataset/MNIST", train=True, download=True, transform=transform_test),
             batch_size=1000, shuffle=False, num_workers=8)
         test_loader = torch.utils.data.DataLoader(
-            torchvision.datasets.MNIST(root="../benchmark_dell/dataset/MNIST", train=False, download=True, transform=transform_test),
+            torchvision.datasets.MNIST(root="./dataset/MNIST", train=False, download=True, transform=transform_test),
             batch_size=1000, shuffle=False, num_workers=8)
     
     elif args.dataset == "ImageNet":
@@ -94,8 +94,8 @@ def get_dataloader(args):
             transforms.ToTensor()
         ])
 
-        train_dir = os.path.join("../benchmark_dell/dataset/ImageNet50", 'train')
-        val_dir = os.path.join("../benchmark_dell/dataset/ImageNet50", 'val')
+        train_dir = os.path.join("./dataset/ImageNet50", 'train')
+        val_dir = os.path.join("./dataset/ImageNet50", 'val')
 
         train_dataset = torchvision.datasets.ImageFolder(train_dir, transform=transform_test)
         val_dataset = torchvision.datasets.ImageFolder(val_dir, transform=transform_test)
