@@ -68,36 +68,4 @@ python main.py \
 ```
 
 
-## Pre-trained Models
-
-You can download pre-trained models here:
-
-- [Models](https://drive.google.com/mymodel.pth) *(coming soon)*
-
-
-
-## Results
-
-Our model achieves the following performance on :
-
-### [Image Classification on CIFAR-10]
-<p align="left">
-    <img src="docs/main_result.png" width="600px"/>
-</p>
-For more empirical results and theoretical analysis, please refer to the main paper and appendix.
-
-## Contributing
-
-We welcome contributions to this repository!
-
-If you'd like to contribute:
-
-1. Fork the repository.
-2. Open a pull request describing your changes.
-
-For any major changes, please open an issue first to discuss what you would like to change.
-
-## 📄 License
-
-This code is released under the [MIT License](LICENSE).
 
