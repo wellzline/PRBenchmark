@@ -15,6 +15,7 @@ from tiny_imagenet import TinyImageNet
 import torchvision.transforms as transforms
 from torchvision.datasets import ImageFolder
 
+
 seed = 0
 random.seed(seed)
 np.random.seed(seed)
