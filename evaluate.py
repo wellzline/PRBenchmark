@@ -238,7 +238,7 @@ def run_prob(x, y, model, eps, sample_id, distribute, GE):
         y = model(x)  
         y_diff = torch.cat((y[:,:x_class], y[:,(x_class+1):]),dim=1) - y[:,x_class].unsqueeze(-1)
         y_diff, _ = y_diff.max(dim=1)
-        return y_diff  # >0 means AE
+        return y_diff 
 
     def brute_force(prop, distribute, count_iterations=1):
         count_above, count_total, count_particles = int(0), int(0), int(100)
@@ -249,7 +249,6 @@ def run_prob(x, y, model, eps, sample_id, distribute, GE):
             
             x = torch.clamp(x, x_sample - eps, x_sample + eps)
             x = torch.clamp(x, min=x_min.view(3, 1, 1), max=x_max.view(3, 1, 1))
-            # x = torch.clamp(x, min=x_min.view(1, 1, 1), max=x_max.view(1, 1, 1))
             
             s_x = prop(x).squeeze(-1) 
             count_above += int((s_x >= 0).float().sum().item()) 
@@ -259,25 +258,10 @@ def run_prob(x, y, model, eps, sample_id, distribute, GE):
 
     x_sample = x[sample_id]  
     x_class = y[sample_id]
-    
-    # prior_uni = dist.Uniform(  # MNIST
-    #     low=torch.max(x_sample - eps * (x_max - x_min).view(1, 1, 1), x_min.view(1, 1, 1)),
-    #     high=torch.min(x_sample + eps * (x_max - x_min).view(1, 1, 1), x_max.view(1, 1, 1))
-    # )
-    
-    # prior_norm = dist.Normal(
-    #     loc=x_sample,  
-    #     scale=eps * (x_max - x_min).view(1, 1, 1)  
-    # )
-
-    # prior_lap = dist.Laplace(
-    #     loc=x_sample,  
-    #     scale=eps * (x_max - x_min).view(1, 1, 1)  
-    # )
 
 
 
-    prior_uni = dist.Uniform(   # CIFAR, SVHN, Tiny-ImageNet
+    prior_uni = dist.Uniform(  
         low=torch.max(x_sample - eps * (x_max - x_min).view(3, 1, 1), x_min.view(3, 1, 1)),
         high=torch.min(x_sample + eps * (x_max - x_min).view(3, 1, 1), x_max.view(3, 1, 1))
     )
@@ -295,10 +279,7 @@ def run_prob(x, y, model, eps, sample_id, distribute, GE):
     distribution = {"Uniform":prior_uni, "Normal": prior_norm, "Laplace":prior_lap}
 
     
-    # input = x_sample.view(1, 3, 224, 224)  # imagenet
-    input = x_sample.view(1, 3, 32, 32)  # CIFAR, SVHN
-    ## input = x_sample.view(1, 1, 28, 28)  # MNIST
-    ## input = x_sample.view(1, 3, 64, 64)    # Tiny-ImageNet
+    input = x_sample.view(1, 3, 32, 32)  
     s_x = prop(input).squeeze(-1)  
 
     if GE:
