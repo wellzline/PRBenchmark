@@ -3,6 +3,12 @@
 This repository is the official implementation of PRBench: A Standardized Probabilistic Robustness Benchmark. 
 
 
+## 🔥 News
+
+- [2026/05/16] Our work has been accepted by The KDD 2026 !
+
+
+
 ## Requirements
 
 To install requirements:
