@@ -35,7 +35,7 @@ https://tmpspace.github.io/PRBenchLeaderboard/
 ## 📌 Overview
 
 <p align="center">
-    <img src="docs/weights_score.png" width="900px"/>
+    <img src="docs/overview.png" width="900px"/>
 </p>
 
 ## Abstract
