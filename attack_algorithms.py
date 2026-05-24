@@ -142,52 +142,6 @@ def trades_loss(model, x, y, optimizer, step_size=2/255, epsilon=8/255, attack_s
 
 
 
-def trades_loss_efficient_2(model, x, y, optimizer, step_size=2/255, epsilon=8/255, attack_steps=10, beta=6.0, inefficient_counter=0):
-    global_counter = 0
-    decision_step = inefficient_counter
-    criterion_kl = nn.KLDivLoss(reduction='batchmean')
-    model.eval()
-    x_adv = x.detach() + 0.001 * torch.randn(x.shape).cuda().detach()
-    discard = False
-    with torch.no_grad():
-        logits_nat = model(x)
-        loss_natural = F.cross_entropy(logits_nat, y)
-        clean_output_softmax = F.softmax(logits_nat, dim=1)
-
-    for step in range(attack_steps):
-        x_adv.requires_grad_()
-        with torch.enable_grad():
-            loss_kl = criterion_kl(F.log_softmax(model(x_adv), dim=1),
-                                    clean_output_softmax)
-        grad = torch.autograd.grad(loss_kl, [x_adv])[0]
-        x_adv = x_adv.detach() + step_size * torch.sign(grad.detach())
-        x_adv = torch.min(torch.max(x_adv, x - epsilon), x + epsilon)
-        x_adv = torch.clamp(x_adv, min=0, max=1).detach()
-
-        if step == decision_step:
-            with torch.no_grad():
-                loss_adv_m = F.cross_entropy(model(x_adv), y)
-            if loss_adv_m.item() < loss_natural.item():
-                discard = True
-                break  
-
-    model.train()
-    logits = model(x)
-    loss_natural = F.cross_entropy(logits, y)
-    optimizer.zero_grad()
-    if discard:
-        loss = loss_natural
-        global_counter += 1
-    else:
-        x_adv = Variable(torch.clamp(x_adv, 0.0, 1.0), requires_grad=False)
-        logits_adv = model(x_adv)
-        loss_robust = criterion_kl(F.log_softmax(logits_adv, dim=1),
-                                   F.softmax(logits, dim=1))
-        loss = loss_natural + beta * loss_robust
-    
-    return loss, logits, global_counter
-
-
 
 def mart_loss(model,x, y, optimizer, step_size=2/255, epsilon=8/255, attack_steps=10, beta=5.0):
     kl = nn.KLDivLoss(reduction='none')

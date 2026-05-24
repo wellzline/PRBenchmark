@@ -12,8 +12,8 @@ from tqdm import tqdm
 import logging
 from cifar_model import *
 from utils import data_prepare
-from attack_algorithms import (corruption_laplace, corruption_gaussian, ERM_DataAug, CLP, ALP, pgd_loss, fgsm_loss, trades_loss, mart_loss, corruption_uniform, CVaR_loss, PR)
-from evaluate import  evaluate_aa, evaluate_PGD, evaluate_PR, evaluate_cw
+from attack_algorithms import *
+from evaluate import  *
 seed = 0
 random.seed(seed)
 np.random.seed(seed)
@@ -37,7 +37,6 @@ def get_args():
     parser.add_argument('--patch', type=int, default=4, help='Number of classes')
     parser.add_argument('--cvar', type=int, default=10, help='Number of classes')
 
-    parser.add_argument('--distribute', type=str, default='rotation', choices=["rotation", "translation", "scaling", "hue", "saturation", "brightness_contrast", "gaussian_blur"], help='stage of running')
 
 
     # Training settings
@@ -50,7 +49,7 @@ def get_args():
     parser.add_argument('--phase', type=str, default='train', choices=['train', 'eval'], help='stage of running')
 
     # Attack settings
-    parser.add_argument('--attack', type=str, default='PGD', choices=['functional','fast_PR_fd','PR_multi','fast_PR_mixed_1','PR_grad_penal','fast_PR_mixed','mix_ce_kl_1','mix_ce_kl','fast_PR_5','fast_PR_2_grad', 'MIX','corruption_laplace', 'corruption_gaussian', 'TERM', 'EVaR', 'pgd_origin','ERM_DataAug','ALP', 'KL', 'CLP', 'CVaR_loss_autograd', 'PGD_uniform', 'Clean', 'PGD', 'FGSM', 'PR', 'fast_PR', 'fast_PR_1', 'fast_PR_2', 'fast_PR_3', 'Corruption','TRADES', 'TRADES_efficient_1','TRADES_efficient_2', 'MART', 'CVaR'], help='Type of attack')
+    parser.add_argument('--attack', type=str, default='PGD', help='Type of attack')
     parser.add_argument('--beta', type=float, default=6.0, help='trades balanced parameter')
     parser.add_argument('--decision_step', type=float, default=0.0, help='efficient trades decision_step')
     parser.add_argument('--attack_steps', type=int, default=7, help='Number of attack steps')
