@@ -1,6 +1,8 @@
 # PRBench: A Standardized Probabilistic Robustness Benchmark
 
-
+[![Leaderboard](https://img.shields.io/badge/Leaderboard-PRBench-blue)](https://tmpspace.github.io/PRBenchLeaderboard/)
+[![KDD 2026](https://img.shields.io/badge/KDD-2026-red)](https://kdd2026.kdd.org/datasets-and-benchmarks-track-call-for-papers/#february_cycle)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 > [Yi Zhang](https://scholar.google.com/citations?user=9E8XJ54AAAAJ&hl=en), 
 [Zheng Wang](https://scholar.google.com/citations?user=p0b4pLoAAAAJ&hl=en), 
@@ -12,13 +14,6 @@
 [Xingyu Zhao*](https://scholar.google.com/citations?user=SzEBdA8AAAAJ&hl=en)
 >
 > *Corresponding Author
-
-
-# PRBench: A Standardized Probabilistic Robustness Benchmark
-
-[![Leaderboard](https://img.shields.io/badge/Leaderboard-PRBench-blue)](https://tmpspace.github.io/PRBenchLeaderboard/)
-[![KDD 2026](https://img.shields.io/badge/KDD-2026-red)](https://kdd2026.kdd.org/datasets-and-benchmarks-track-call-for-papers/#february_cycle)
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 This repository provides the official implementation of **PRBench: A Standardized Probabilistic Robustness Benchmark**.
 
