@@ -1,6 +1,6 @@
 # PRBench: A Standardized Probabilistic Robustness Benchmark
 
-[![Leaderboard](https://img.shields.io/badge/Leaderboard-PRBench-blue)](https://tmpspace.github.io/PRBenchLeaderboard/)
+[![Leaderboard](https://img.shields.io/badge/Leaderboard-PRBench-blue)](https://wellzline.github.io/PRBenchLeaderboard/)
 [![KDD 2026](https://img.shields.io/badge/KDD-2026-red)](https://kdd2026.kdd.org/datasets-and-benchmarks-track-call-for-papers/#february_cycle)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
@@ -19,8 +19,8 @@ This repository provides the official implementation of **PRBench: A Standardize
 
 PRBench is a standardized benchmark for evaluating probabilistic robustness. It provides a unified evaluation protocol, benchmark datasets, and reproducible baselines to facilitate fair comparison across methods.
 
-🌐 **Public Leaderboard:**  
-https://tmpspace.github.io/PRBenchLeaderboard/
+
+🌐 **Public Leaderboard:** [PRBench Leaderboard](https://wellzline.github.io/PRBenchLeaderboard/)
 
 ## 🔥 News
 
