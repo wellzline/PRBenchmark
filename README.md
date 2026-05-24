@@ -14,20 +14,33 @@
 > *Corresponding Author
 
 
-This repository is the official implementation of PRBench: A Standardized Probabilistic Robustness Benchmark. 
+# PRBench: A Standardized Probabilistic Robustness Benchmark
 
+[![Leaderboard](https://img.shields.io/badge/Leaderboard-PRBench-blue)](https://tmpspace.github.io/PRBenchLeaderboard/)
+[![KDD 2026](https://img.shields.io/badge/KDD-2026-red)](https://kdd2026.kdd.org/datasets-and-benchmarks-track-call-for-papers/#february_cycle)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+
+This repository provides the official implementation of **PRBench: A Standardized Probabilistic Robustness Benchmark**.
+
+PRBench is a standardized benchmark for evaluating probabilistic robustness. It provides a unified evaluation protocol, benchmark datasets, and reproducible baselines to facilitate fair comparison across methods.
+
+🌐 **Public Leaderboard:**  
+https://tmpspace.github.io/PRBenchLeaderboard/
 
 ## 🔥 News
 
 - [2026/05/16] Our work has been accepted by The KDD 2026 !
 
 
+## 📌 Overview
 
 ## Abstract
 Deep learning models are notoriously vulnerable to imperceptible perturbations. Most existing research focuses on adversarial robustness (AR), which evaluates robustness by determining whether a worst-case adversarial example (AE) exists. In contrast, probabilistic robustness (PR) measures the probability that predictions remain correct under stochastic perturbations. While PR is widely regarded as a practical complement to AR, dedicated training methods for improving PR are still relatively underexplored, albeit with emerging progress. Among the few PR-targeted training methods, we identify three limitations: i) non‑comparable evaluation protocols; ii) limited comparisons to adversarial training (AT) baselines despite anecdotal PR gains from AT, and; iii) no unified framework to compare the generalization of these methods. Thus, we introduce PRBench, the first benchmark dedicated to evaluating PR performance achieved by different robustness training methods. PRBench empirically compares most common AT and PR-targeted training methods using a comprehensive set of metrics, including clean accuracy, PR and AR performance, training efficiency, and generalization error (GE). We also provide theoretical analysis of the GE across different training methods, grounded in Uniform Algorithmic Stability. Our results reveal two distinct trade-off frontiers: AT methods improve both AR and PR performance at the cost of clean accuracy and GE, whereas PR-targeted methods prioritize high clean accuracy and PR with lower GE while trading off AR performance. Based on these observations, PRBench inspires future research: subsequent work may benefit from developing versatile, AT-based approaches that achieve balanced performance by jointly enhancing AR and PR while maintaining clean accuracy and low GE. These findings underscore the necessity of PRBench as the first standardized benchmark for PR, complementing the widely studied area of AR. 
 
 
-## Requirements
+## 🚀 Getting Started
+
+### Installation
 
 To install requirements:
 
@@ -36,7 +49,7 @@ pip install -r requirements.txt
 ```
 
 
-## Training
+### Training
 
 To train the model(s) in the paper, run this command:
 
@@ -65,7 +78,7 @@ python main.py \
     --beta 6.0 
 ```
 
-## Evaluation
+### Evaluation
 
 To evaluate my model on ImageNet, run:
 
