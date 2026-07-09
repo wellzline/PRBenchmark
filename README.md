@@ -104,4 +104,14 @@ python main.py \
 ```
 
 
-
+## Citation
+If you find this repo useful, please cite:
+```
+@article{zhang2026prbench,
+  title={PRBench: A standardized probabilistic robustness benchmark},
+  author={Zhang, Yi and Wang, Zheng and Chen, Zhen and Ruan, Wenjie and Guo, Qing and Khastgir, Siddartha and Maple, Carsten and Zhao, Xingyu},
+  year={2026},
+  booktitle={KDD'26: ACM SIGKDD Conf. on Knowledge Discovery and Data Mining},
+  publisher={ACM}
+}
+```
