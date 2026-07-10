@@ -30,7 +30,7 @@ PRBench is a standardized benchmark for evaluating probabilistic robustness. It 
 ## 📌 Overview
 
 <p align="center">
-    <img src="docs/poster.png" width="600px"/>
+    <img src="docs/poster.png" width="900px"/>
 </p>
 
 <p align="center">
